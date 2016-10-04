@@ -10,9 +10,10 @@ The entry in `config.js` can include the following options:
 
 |Option|Description|
 |---|---|
-|`key`|**Required** This is the API key you need to use to requst weather data from the Weather Underground site.  Details on how to request an API key can be found [here](https://www.wunderground.com/weather/api/)<br><br>**Type:** `string`<br>**Default Value:** `null`|
-|`state`|**Required** This defines the US State or Country to get weather information about.  Valid Wunderground codes are detailed [here](https://www.wunderground.com/weather/api/d/docs?d=resources/country-to-iso-matching)<br><br>**Type:** `string`<br>**Default value:** `CA`|
-|`city`|**Required** This defines the city to get weather information about.<br><br>**Type:** `string`<br>**Default value:** `San_Jose`|
+|`api_key`|**Required** This is the API key you need to use to requst weather data from the Weather Underground site.  Details on how to request an API key can be found [here](https://www.wunderground.com/weather/api/)<br><br>**Type:** `string`<br>**Default Value:** `null`|
+|`state`|This defines the US State or Country to get weather information about.  Valid Wunderground codes are detailed [here](https://www.wunderground.com/weather/api/d/docs?d=resources/country-to-iso-matching)<br><br>**Type:** `string`<br>**Default value:** `CA`|
+|`city`|This defines the city to get weather information about.<br><br>**Type:** `string`<br>**Default value:** `San_Jose`|
+|`interval`|How often the weather is updated.<br><br>**Type:** `integer`<br>**Default value:** `900000 // 15 minutes`|
 
 Here is an example of an entry in `config.js`
 ```

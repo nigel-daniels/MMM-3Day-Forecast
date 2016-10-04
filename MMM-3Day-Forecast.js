@@ -8,7 +8,8 @@
 Module.register('MMM-3Day-Forecast', {
     defaults: {
             state:  'CA',       // Supported states can be found here https://www.wunderground.com/weather/api/d/docs?d=resources/country-to-iso-matching
-            city:   'San_Jose'
+            city:   'San_Jose',
+            interval:   900000 // Every 15 mins
         },
 
     start:  function() {
@@ -21,21 +22,22 @@ Module.register('MMM-3Day-Forecast', {
         // Set up the local values, here we construct the request url to use
         this.loaded = false;
         this.nowURL = 'http://api.wunderground.com/api/' + this.config.api_key + '/conditions/q/' + this.config.state + '/' + this.config.city +'.json';;
+        this.forecastURL = 'http://api.wunderground.com/api/' + this.config.api_key + '/forecast/q/' + this.config.state + '/' + this.config.city +'.json';
         this.type = '';
         this.message = '';
         this.weather = '';
 
         // Trigger the first request
-        this.getAirportData(this);
+        this.getWeatherData(this);
         },
 
     getStyles: function() {
-            return ['airport.css', 'font-awesome.css'];
+            return ['3day_forecast.css', 'font-awesome.css'];
         },
 
-    getAirportData: function(that) {
+    getWeatherData: function(that) {
         // Make the initial request to the helper then set up the timer to perform the updates
-        that.sendSocketNotification('GET-3DAY-FORECAST', that.url);
+        that.sendSocketNotification('GET-3DAY-FORECAST', {that.nowURL, that.forecastURL});
         setTimeout(that.getAirportData, that.config.interval, that);
         },
 
