@@ -9,7 +9,7 @@ Module.register('MMM-3Day-Forecast', {
 
     defaults: {
             api_key:    '',
-            state:      'CA',       // Supported states can be found here https://www.wunderground.com/weather/api/d/docs?d=resources/country-to-iso-matching
+            state:      'CA', // Supported states can be found here https://www.wunderground.com/weather/api/d/docs?d=resources/country-to-iso-matching
             city:       'San_Jose',
             interval:   900000 // Every 15 mins
         },
@@ -45,7 +45,7 @@ Module.register('MMM-3Day-Forecast', {
     getWeatherData: function(that) {
         // Make the initial request to the helper then set up the timer to perform the updates
         that.sendSocketNotification('GET-3DAY-FORECAST', {'nowURL': that.nowURL, 'forecastURL': that.forecastURL});
-        setTimeout(that.getAirportData, that.config.interval, that);
+        setTimeout(that.getWeatherData, that.config.interval, that);
         },
 
 
@@ -65,7 +65,7 @@ Module.register('MMM-3Day-Forecast', {
             // Elements to add to the now div
             nowIcon = document.createElement('img');
             nowIcon.className = 'nowIcon';
-            nowIcon.src = './images/' + this.nowIcon + '.gif';
+            nowIcon.src = './modules/MMM-3Day-Forecast/images/' + this.nowIcon + '.gif';
 
             nowDetail = document.createElement('div');
             nowDetail.className = 'nowDetail';
@@ -80,8 +80,8 @@ Module.register('MMM-3Day-Forecast', {
             nowText.innerHTML = this.nowWeather;
 
             nowTemp = document.createElement('div');
-            nowText.className = 'nowTemp';
-            nowText.innerHTML = 'Feels like ' + this.nowTempC + '&deg; C (' + this.nowTempF + '&deg; F)';
+            nowTemp.className = 'nowTemp';
+            nowTemp.innerHTML = 'Feels like ' + this.nowTempC + '&deg; C (' + this.nowTempF + '&deg; F)';
 
             // Add elements to the nowDetail div
             nowDetail.appendChild(nowTitle);
@@ -107,6 +107,7 @@ Module.register('MMM-3Day-Forecast', {
     socketNotificationReceived: function(notification, payload) {
         // check to see if the response was for us and used the same url
         if (notification === 'GOT-3DAY-FORECAST' && payload.url === this.nowURL) {
+                console.log('Payload: ' + JSON.stringify(payload));
                 // we got some data so set the flag, stash the data to display then request the dom update
                 this.loaded = true;
                 this.nowIcon = payload.nowIcon;
