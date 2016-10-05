@@ -1,0 +1,46 @@
+.now {
+    height: 100px;
+}
+
+.nowIcon {
+    margin-right: 5px;
+}
+
+.nowDetail {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+}
+
+.nowTitle {
+    font-size: 45px;
+}
+
+.nowText {
+    text-transform: lowercase;
+    display: inline-block;
+}
+
+.nowText:first-letter {
+    text-transform: uppercase !important;
+}
+
+.forecast {
+    display: flex;
+    text-align: center;
+}
+
+.forcastDay {
+    width: 110px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.forcastDay img {
+    margin-right: 5px;
+}
+
+.forecastDetail {
+    text-align: left;
+    font-size: 14px;
+}

@@ -6,11 +6,14 @@
  */
 
 Module.register('MMM-3Day-Forecast', {
+
     defaults: {
-            state:  'CA',       // Supported states can be found here https://www.wunderground.com/weather/api/d/docs?d=resources/country-to-iso-matching
-            city:   'San_Jose',
+            api_key:    '',
+            state:      'CA',       // Supported states can be found here https://www.wunderground.com/weather/api/d/docs?d=resources/country-to-iso-matching
+            city:       'San_Jose',
             interval:   900000 // Every 15 mins
         },
+
 
     start:  function() {
         Log.log('Starting module: ' + this.name);
@@ -21,25 +24,30 @@ Module.register('MMM-3Day-Forecast', {
 
         // Set up the local values, here we construct the request url to use
         this.loaded = false;
-        this.nowURL = 'http://api.wunderground.com/api/' + this.config.api_key + '/conditions/q/' + this.config.state + '/' + this.config.city +'.json';;
+        this.nowURL = 'http://api.wunderground.com/api/' + this.config.api_key + '/conditions/q/' + this.config.state + '/' + this.config.city +'.json';
         this.forecastURL = 'http://api.wunderground.com/api/' + this.config.api_key + '/forecast/q/' + this.config.state + '/' + this.config.city +'.json';
-        this.type = '';
-        this.message = '';
-        this.weather = '';
+        this.nowIcon = '';
+        this.nowWeather = '';
+        this.nowTempC = '';
+        this.nowTempF = '';
+        this.forecast = null;
 
         // Trigger the first request
         this.getWeatherData(this);
         },
 
+
     getStyles: function() {
             return ['3day_forecast.css', 'font-awesome.css'];
         },
 
+
     getWeatherData: function(that) {
         // Make the initial request to the helper then set up the timer to perform the updates
-        that.sendSocketNotification('GET-3DAY-FORECAST', {that.nowURL, that.forecastURL});
+        that.sendSocketNotification('GET-3DAY-FORECAST', {'nowURL': that.nowURL, 'forecastURL': that.forecastURL});
         setTimeout(that.getAirportData, that.config.interval, that);
         },
+
 
     getDom: function() {
         // Set up the local wrapper
@@ -47,66 +55,65 @@ Module.register('MMM-3Day-Forecast', {
 
         // If we have some data to display then build the results table
         if (this.loaded) {
-            wrapper = document.createElement("table");
-		    wrapper.className = "airport small";
+            wrapper = document.createElement('div');
+		    wrapper.className = 'weather small';
 
-            // Set up the first row with the aiport data
-            airportRow = document.createElement("tr");
+            // Set up the first div with the now weather data
+            nowDiv = document.createElement('div');
+            nowDiv.className = 'now';
 
-            airportCode = document.createElement("td");
-            airportCode.className = "code bright";
-            airportCode.innerHTML = this.config.airport;
+            // Elements to add to the now div
+            nowIcon = document.createElement('img');
+            nowIcon.className = 'nowIcon';
+            nowIcon.src = './images/' + this.nowIcon + '.gif';
 
+            nowDetail = document.createElement('div');
+            nowDetail.className = 'nowDetail';
 
-            airportInfo = document.createElement("td");
-            airportInfo.className = "type bright";
-            airportInfo.innerHTML = this.type;
+            // Elements to add to the nowDetail
+            nowTitle = document.createElement('div');
+            nowTitle.className = 'nowTitle';
+            nowTitle.innerHTML = 'Now';
 
-            airportRow.appendChild(airportCode);
-            airportRow.appendChild(airportInfo);
+            nowText = document.createElement('div');
+            nowText.className = 'nowText';
+            nowText.innerHTML = this.nowWeather;
 
-            // Set up the next row with detailed information
-            messageRow = document.createElement("tr");
+            nowTemp = document.createElement('div');
+            nowText.className = 'nowTemp';
+            nowText.innerHTML = 'Feels like ' + this.nowTempC + '&deg; C (' + this.nowTempF + '&deg; F)';
 
-            blank1  = document.createElement("td");
-            airportMessage = document.createElement("td");
-            airportMessage.className = "message dimmed";
-            airportMessage.innerHTML = this.message;
+            // Add elements to the nowDetail div
+            nowDetail.appendChild(nowTitle);
+            nowDetail.appendChild(nowText);
+            nowDetail.appendChild(nowTemp);
 
-            messageRow.appendChild(blank1);
-            messageRow.appendChild(airportMessage);
-            // Set up the last row with weather data
-            weatherRow = document.createElement("tr");
-
-            blank2  = document.createElement("td");
-            airportWeather = document.createElement("td");
-            airportWeather.className = "weather dimmed";
-            airportWeather.innerHTML = this.weather;
-
-            weatherRow.appendChild(blank2);
-            weatherRow.appendChild(airportWeather);
+            // Add elements to the now div
+            nowDiv.appendChild(nowIcon);
+            nowDiv.appendChild(nowDetail);
 
             // Add the rows to the table
-            wrapper.appendChild(airportRow);
-            wrapper.appendChild(messageRow);
-            wrapper.appendChild(weatherRow);
+            wrapper.appendChild(nowDiv);
         } else {
             // Otherwise lets just use a simple div
             wrapper = document.createElement('div');
-            wrapper.innerHTML = 'Loading airport data...';
+            wrapper.innerHTML = 'Loading weather data...';
             }
 
         return wrapper;
         },
 
+
     socketNotificationReceived: function(notification, payload) {
         // check to see if the response was for us and used the same url
-        if (notification === 'GOT-3DAY-FORECAST' && payload.url === this.url) {
+        if (notification === 'GOT-3DAY-FORECAST' && payload.url === this.nowURL) {
                 // we got some data so set the flag, stash the data to display then request the dom update
                 this.loaded = true;
-                this.type = payload.type;
-                this.message = payload.message;
-                this.weather = payload.weather;
+                this.nowIcon = payload.nowIcon;
+                this.nowWeather = payload.nowWeather;
+                this.nowTempC = payload.nowTempC;
+                this.nowTempF = payload.nowTempF;
+                this.forecast = payload.forecast;
                 this.updateDom(1000);
             }
         }
