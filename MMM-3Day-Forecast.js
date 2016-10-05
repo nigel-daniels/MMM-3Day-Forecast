@@ -23,13 +23,9 @@ Module.register('MMM-3Day-Forecast', {
             }
 
         // Set up the local values, here we construct the request url to use
+        this.units = config.units;
         this.loaded = false;
-        this.nowURL = 'http://api.wunderground.com/api/' + this.config.api_key + '/conditions/q/' + this.config.state + '/' + this.config.city +'.json';
-        this.forecastURL = 'http://api.wunderground.com/api/' + this.config.api_key + '/forecast/q/' + this.config.state + '/' + this.config.city +'.json';
-        this.nowIcon = '';
-        this.nowWeather = '';
-        this.nowTempC = '';
-        this.nowTempF = '';
+        this.url = 'http://api.wunderground.com/api/' + this.config.api_key + '/forecast/q/' + this.config.state + '/' + this.config.city +'.json';
         this.forecast = null;
 
         // Trigger the first request
@@ -44,7 +40,7 @@ Module.register('MMM-3Day-Forecast', {
 
     getWeatherData: function(that) {
         // Make the initial request to the helper then set up the timer to perform the updates
-        that.sendSocketNotification('GET-3DAY-FORECAST', {'nowURL': that.nowURL, 'forecastURL': that.forecastURL});
+        that.sendSocketNotification('GET-3DAY-FORECAST', that.url);
         setTimeout(that.getWeatherData, that.config.interval, that);
         },
 
@@ -53,47 +49,122 @@ Module.register('MMM-3Day-Forecast', {
         // Set up the local wrapper
         var wrapper = null;
 
-        // If we have some data to display then build the results table
+        // If we have some data to display then build the results
         if (this.loaded) {
             wrapper = document.createElement('div');
-		    wrapper.className = 'weather small';
+		    wrapper.className = 'forecast small';
 
-            // Set up the first div with the now weather data
-            nowDiv = document.createElement('div');
-            nowDiv.className = 'now';
+            // Set up the forecast for three three days
+            for (var i = 0; i < 3; i++) {
+                var forecastClass = '';
+                var title = '';
 
-            // Elements to add to the now div
-            nowIcon = document.createElement('img');
-            nowIcon.className = 'nowIcon';
-            nowIcon.src = './modules/MMM-3Day-Forecast/images/' + this.nowIcon + '.gif';
+                // Determine which day we are detailing
+                switch (i) {
+                    case 0:
+                        forecastClass = 'today';
+                        title = 'Today';
+                        break;
+                    case 1:
+                        forecastClass = 'tomorrow';
+                        title = 'Tomorrow';
+                        break;
+                    case 2:
+                        forecastClass = 'dayAfter';
+                        title = 'Day After';
+                        break;
+                    }
 
-            nowDetail = document.createElement('div');
-            nowDetail.className = 'nowDetail';
+                // Create the details for this day
+                forcastDay = document.createElement('div');
+                forcastDay.className = 'forecastday ' + forecastClass;
 
-            // Elements to add to the nowDetail
-            nowTitle = document.createElement('div');
-            nowTitle.className = 'nowTitle';
-            nowTitle.innerHTML = 'Now';
+                forcastTitle = document.createElement('div');
+                forcastTitle.className = 'forecastTitle normal';
+                forcastTitle.innerHTML = title;
 
-            nowText = document.createElement('div');
-            nowText.className = 'nowText';
-            nowText.innerHTML = this.nowWeather;
+                forecastIcon = document.createElement('img');
+                forecastIcon.className = 'forecastIcon';
+                forecastIcon.setAttribute('height', '50');
+                forecastIcon.setAttribute('width', '50');
+                forecastIcon.src = './modules/MMM-3Day-Forecast/images/' + this.forecast[i].icon + '.gif';
 
-            nowTemp = document.createElement('div');
-            nowTemp.className = 'nowTemp';
-            nowTemp.innerHTML = 'Feels like ' + this.nowTempC + '&deg; C (' + this.nowTempF + '&deg; F)';
+                forecastText = document.createElement('div');
+                forecastText.className = 'forecastText';
+                forecastText.innerHTML = this.forecast[i].conditions;
 
-            // Add elements to the nowDetail div
-            nowDetail.appendChild(nowTitle);
-            nowDetail.appendChild(nowText);
-            nowDetail.appendChild(nowTemp);
+                forecastBr = document.createElement('br');
 
-            // Add elements to the now div
-            nowDiv.appendChild(nowIcon);
-            nowDiv.appendChild(nowDetail);
 
-            // Add the rows to the table
-            wrapper.appendChild(nowDiv);
+                // Create div to hold all of the detail data
+                forecastDetail = document.createElement('div');
+                forecastDetail.className = 'forecastDetail';
+
+                // Build up the details regarding temprature
+                tempIcon = document.createElement('img');
+                tempIcon.className = 'detailIcon';
+                tempIcon.setAttribute('height', '15');
+                tempIcon.setAttribute('width', '15');
+                tempIcon.src = './modules/MMM-3Day-Forecast/images/high.png';
+
+                tempText = document.createElement('span');
+                if (this.units === 'imperial') {
+                    tempText.innerHTML = this.forecast[i].highf + '&deg; F (' + this.forecast[i].highc + '&deg; C)';
+                } else {
+                    tempText.innerHTML = this.forecast[i].highc + '&deg; C (' + this.forecast[i].highf + '&deg; F)';
+                    }
+
+                tempBr = document.createElement('br');
+
+                // Build up the details regarding precipitation %
+                rainIcon = document.createElement('img');
+                rainIcon.className = 'detailIcon';
+                rainIcon.setAttribute('height', '15');
+                rainIcon.setAttribute('width', '15');
+                rainIcon.src = './modules/MMM-3Day-Forecast/images/wet.png';
+
+                rainText = document.createElement('span');
+                rainText.innerHTML = this.forecast[i].pop + '%';
+
+                rainBr = document.createElement('br');
+
+                // Build up the details regarding wind
+                windIcon = document.createElement('img');
+                windIcon.className = 'detailIcon';
+                windIcon.setAttribute('height', '15');
+                windIcon.setAttribute('width', '15');
+                windIcon.src = './modules/MMM-3Day-Forecast/images/wind.png';
+
+                windText = document.createElement('span');
+                if (this.units === 'imperial') {
+                    windText.innerHTML = this.forecast[i].wmaxm + 'Mph (' + this.forecast[i].wmaxk + 'Kph) ' + this.forecast[i].wdir;
+                } else {
+                    windText.innerHTML = this.forecast[i].wmaxk + 'Kph (' + this.forecast[i].wmaxm + 'Mph) ' + this.forecast[i].wdir;
+                    }
+
+                windBr = document.createElement('br');
+
+                // Now assemble the details
+                forecastDetail.appendChild(tempIcon);
+                forecastDetail.appendChild(tempText);
+                forecastDetail.appendChild(tempBr);
+                forecastDetail.appendChild(rainIcon);
+                forecastDetail.appendChild(rainText);
+                forecastDetail.appendChild(rainBr);
+                forecastDetail.appendChild(windIcon);
+                forecastDetail.appendChild(windText);
+                forecastDetail.appendChild(windBr);
+
+                forcastDay.appendChild(forcastTitle);
+                forcastDay.appendChild(forecastIcon);
+                forcastDay.appendChild(forecastText);
+                forcastDay.appendChild(forecastBr);
+                forcastDay.appendChild(forecastDetail);
+
+                // Now assemble the final output
+                wrapper.appendChild(forcastDay);
+                }
+
         } else {
             // Otherwise lets just use a simple div
             wrapper = document.createElement('div');
@@ -106,14 +177,9 @@ Module.register('MMM-3Day-Forecast', {
 
     socketNotificationReceived: function(notification, payload) {
         // check to see if the response was for us and used the same url
-        if (notification === 'GOT-3DAY-FORECAST' && payload.url === this.nowURL) {
-                console.log('Payload: ' + JSON.stringify(payload));
+        if (notification === 'GOT-3DAY-FORECAST' && payload.url === this.url) {
                 // we got some data so set the flag, stash the data to display then request the dom update
                 this.loaded = true;
-                this.nowIcon = payload.nowIcon;
-                this.nowWeather = payload.nowWeather;
-                this.nowTempC = payload.nowTempC;
-                this.nowTempF = payload.nowTempF;
                 this.forecast = payload.forecast;
                 this.updateDom(1000);
             }
