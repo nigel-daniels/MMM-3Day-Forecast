@@ -171,7 +171,7 @@ Module.register('MMM-3Day-Forecast', {
         } else {
             // Otherwise lets just use a simple div
             wrapper = document.createElement('div');
-            wrapper.innerHTML = 'Loading weather data...';
+            wrapper.innerHTML = 'Loading forecast data...';
             }
 
         return wrapper;
