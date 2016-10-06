@@ -51,8 +51,10 @@ Module.register('MMM-3Day-Forecast', {
 
         // If we have some data to display then build the results
         if (this.loaded) {
-            wrapper = document.createElement('div');
+            wrapper = document.createElement('table');
 		    wrapper.className = 'forecast small';
+
+            forecastRow = document.createElement('tr');
 
             // Set up the forecast for three three days
             for (var i = 0; i < 3; i++) {
@@ -76,7 +78,7 @@ Module.register('MMM-3Day-Forecast', {
                     }
 
                 // Create the details for this day
-                forcastDay = document.createElement('div');
+                forcastDay = document.createElement('td');
                 forcastDay.className = 'forecastday ' + forecastClass;
 
                 forcastTitle = document.createElement('div');
@@ -142,7 +144,7 @@ Module.register('MMM-3Day-Forecast', {
                     windText.innerHTML = this.forecast[i].wmaxk + 'Kph (' + this.forecast[i].wmaxm + 'Mph) ' + this.forecast[i].wdir;
                     }
 
-                windBr = document.createElement('br');
+                //windBr = document.createElement('br');
 
                 // Now assemble the details
                 forecastDetail.appendChild(tempIcon);
@@ -153,7 +155,7 @@ Module.register('MMM-3Day-Forecast', {
                 forecastDetail.appendChild(rainBr);
                 forecastDetail.appendChild(windIcon);
                 forecastDetail.appendChild(windText);
-                forecastDetail.appendChild(windBr);
+                //forecastDetail.appendChild(windBr);
 
                 forcastDay.appendChild(forcastTitle);
                 forcastDay.appendChild(forecastIcon);
@@ -162,9 +164,10 @@ Module.register('MMM-3Day-Forecast', {
                 forcastDay.appendChild(forecastDetail);
 
                 // Now assemble the final output
-                wrapper.appendChild(forcastDay);
+                forecastRow.appendChild(forcastDay);
                 }
 
+            wrapper.appendChild(forecastRow);
         } else {
             // Otherwise lets just use a simple div
             wrapper = document.createElement('div');
