@@ -36,7 +36,7 @@ module.exports = NodeHelper.create({
                         highc:      result.forecast.simpleforecast.forecastday[i].high.celsius,
                         highf:      result.forecast.simpleforecast.forecastday[i].high.fahrenheit,
                         pop:        result.forecast.simpleforecast.forecastday[i].pop,
-                        wmaxk:      result.forecast.simpleforecast.forecastday[i].avewind.mph,
+                        wmaxk:      result.forecast.simpleforecast.forecastday[i].avewind.kph,
                         wmaxm:      result.forecast.simpleforecast.forecastday[i].avewind.mph,
                         wdir:       result.forecast.simpleforecast.forecastday[i].avewind.dir
                         };

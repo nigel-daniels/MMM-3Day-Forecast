@@ -139,9 +139,9 @@ Module.register('MMM-3Day-Forecast', {
 
                 windText = document.createElement('span');
                 if (this.units === 'imperial') {
-                    windText.innerHTML = this.forecast[i].wmaxm + 'Mph (' + this.forecast[i].wmaxk + 'Kph) ' + this.forecast[i].wdir;
+                    windText.innerHTML = this.forecast[i].wmaxm + 'Mph ' + this.forecast[i].wdir;
                 } else {
-                    windText.innerHTML = this.forecast[i].wmaxk + 'Kph (' + this.forecast[i].wmaxm + 'Mph) ' + this.forecast[i].wdir;
+                    windText.innerHTML = this.forecast[i].wmaxk + 'Kph ' + this.forecast[i].wdir;
                     }
 
                 //windBr = document.createElement('br');
