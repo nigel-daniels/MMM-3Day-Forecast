@@ -26,7 +26,7 @@ Module.register('MMM-3Day-Forecast', {
         this.units = config.units;
         this.loaded = false;
         this.url = 'http://api.wunderground.com/api/' + this.config.api_key + '/forecast/q/' + this.config.state + '/' + this.config.city +'.json';
-        this.forecast = null;
+        this.forecast = [];
 
         // Trigger the first request
         this.getWeatherData(this);
@@ -51,6 +51,7 @@ Module.register('MMM-3Day-Forecast', {
 
         // If we have some data to display then build the results
         if (this.loaded) {
+
             wrapper = document.createElement('table');
 		    wrapper.className = 'forecast small';
 
@@ -110,6 +111,7 @@ Module.register('MMM-3Day-Forecast', {
                 tempIcon.src = './modules/MMM-3Day-Forecast/images/high.png';
 
                 tempText = document.createElement('span');
+                tempText.className = 'normal';
                 if (this.units === 'imperial') {
                     tempText.innerHTML = this.forecast[i].highf + '&deg; F (' + this.forecast[i].highc + '&deg; C)';
                 } else {
@@ -126,9 +128,23 @@ Module.register('MMM-3Day-Forecast', {
                 rainIcon.src = './modules/MMM-3Day-Forecast/images/wet.png';
 
                 rainText = document.createElement('span');
+                rainText.className = 'normal';
                 rainText.innerHTML = this.forecast[i].pop + '%';
 
                 rainBr = document.createElement('br');
+
+                // Build up the details regarding humidity %
+                humidIcon = document.createElement('img');
+                humidIcon.className = 'detailIcon';
+                humidIcon.setAttribute('height', '15');
+                humidIcon.setAttribute('width', '15');
+                humidIcon.src = './modules/MMM-3Day-Forecast/images/humid.png';
+
+                humidText = document.createElement('span');
+                humidText.className = 'normal';
+                humidText.innerHTML = this.forecast[i].humid + '%';
+
+                humidBr = document.createElement('br');
 
                 // Build up the details regarding wind
                 windIcon = document.createElement('img');
@@ -138,6 +154,7 @@ Module.register('MMM-3Day-Forecast', {
                 windIcon.src = './modules/MMM-3Day-Forecast/images/wind.png';
 
                 windText = document.createElement('span');
+                windText.className = 'normal';
                 if (this.units === 'imperial') {
                     windText.innerHTML = this.forecast[i].wmaxm + 'Mph ' + this.forecast[i].wdir;
                 } else {
@@ -153,6 +170,9 @@ Module.register('MMM-3Day-Forecast', {
                 forecastDetail.appendChild(rainIcon);
                 forecastDetail.appendChild(rainText);
                 forecastDetail.appendChild(rainBr);
+                forecastDetail.appendChild(humidIcon);
+                forecastDetail.appendChild(humidText);
+                forecastDetail.appendChild(humidBr);
                 forecastDetail.appendChild(windIcon);
                 forecastDetail.appendChild(windText);
                 //forecastDetail.appendChild(windBr);

@@ -12,9 +12,6 @@ module.exports = NodeHelper.create({
 
     start: function () {
         console.log('MMM-3Day-Forecast helper, started...');
-
-        // Set up the local values
-        this.forecast = [];
         },
 
 
@@ -29,6 +26,8 @@ module.exports = NodeHelper.create({
 
             // Check to see if we are error free and got an OK response
             if (!error && response.statusCode == 200) {
+                var forecast = []; // Clear the array
+
                 for (var i=0; i<3; i++) {
                     var day = {
                         icon:       result.forecast.simpleforecast.forecastday[i].icon,
@@ -36,12 +35,13 @@ module.exports = NodeHelper.create({
                         highc:      result.forecast.simpleforecast.forecastday[i].high.celsius,
                         highf:      result.forecast.simpleforecast.forecastday[i].high.fahrenheit,
                         pop:        result.forecast.simpleforecast.forecastday[i].pop,
+                        humid:      result.forecast.simpleforecast.forecastday[i].avehumidity,
                         wmaxk:      result.forecast.simpleforecast.forecastday[i].avewind.kph,
                         wmaxm:      result.forecast.simpleforecast.forecastday[i].avewind.mph,
                         wdir:       result.forecast.simpleforecast.forecastday[i].avewind.dir
                         };
 
-                    that.forecast.push(day);
+                    forecast.push(day);
                     }
             } else {
                 // In all other cases it's some other error
@@ -52,15 +52,17 @@ module.exports = NodeHelper.create({
                         highc:      '--',
                         highf:      '--',
                         pop:        '--',
+                        humid:      '--',
                         wmaxk:      '--',
                         wmaxm:      '--',
                         wdir:       '--'
                         };
-                    that.forecast.push(day);
+                    forecast.push(day);
                     }
                 }
+
                 // We have the response figured out so lets fire off the notifiction
-                that.sendSocketNotification('GOT-3DAY-FORECAST', {'url': that.url, 'forecast': that.forecast});
+                that.sendSocketNotification('GOT-3DAY-FORECAST', {'url': that.url, 'forecast': forecast});
             });
         },
 

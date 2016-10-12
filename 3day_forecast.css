@@ -3,9 +3,12 @@
     text-align: center;
 }
 
-.forcastDay {
-    /* margin-left: 5px; */
-    /* margin-right: 5px; */
+.tomorrow {
+    padding-left: 10px;
+}
+
+.dayAfter {
+    padding-left: 10px;
 }
 
 .forcastDay img {
