@@ -1,5 +1,5 @@
 # MMM-3Day-Forecast
-This a module for the [MagicMirror](https://github.com/MichMich/MagicMirror/tree/develop).  This module shows a 3 day forecast (today, tomorrow and the day after) using the Wunderground API. It displays the overall weather condition, highest temperature, likelyhood of rain, average humidity, highest windspeed and its direction forecast.
+This a module for the [MagicMirror](https://github.com/MichMich/MagicMirror/tree/develop).  This module shows a 3 day forecast (today, tomorrow and the day after) using the Wunderground API. It displays the overall weather condition, highest temperature, likely-hood of rain, average humidity, highest windspeed and its direction forecast.
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/nigel-daniels/MMM-3Day-Forecast`.  A new folder `MMM-3Day-Forecast` will appear, navigate into it.
@@ -21,9 +21,9 @@ Here is an example of an entry in `config.js`
     module:		'MMM-3Day-Forecast',
     position:	'top_left',
     config:		{
-                key:	  'xxxxxxxxxxxx',
-                state:	'UK',
-                city:   'Winchester'
+                api_key:  'xxxxxxxxxxxx',
+                state:	  'UK',
+                city:     'Winchester'
                 }
 },
 ```
