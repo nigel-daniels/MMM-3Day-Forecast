@@ -34,9 +34,15 @@ Module.register('MMM-3Day-Forecast', {
 
 
     getStyles: function() {
-            return ['3day_forecast.css', 'font-awesome.css'];
+        return ['3day_forecast.css', 'font-awesome.css'];
         },
 
+
+    getTranslations: function() {
+        return {
+            en: "translations/en.json"
+            }
+        }
 
     getWeatherData: function(that) {
         // Make the initial request to the helper then set up the timer to perform the updates
@@ -66,15 +72,15 @@ Module.register('MMM-3Day-Forecast', {
                 switch (i) {
                     case 0:
                         forecastClass = 'today';
-                        title = 'Today';
+                        title = this.translate("TODAY");
                         break;
                     case 1:
                         forecastClass = 'tomorrow';
-                        title = 'Tomorrow';
+                        title = this.translate("TOMORROW");
                         break;
                     case 2:
                         forecastClass = 'dayAfter';
-                        title = 'Day After';
+                        title = this.translate("DAYAFTER");
                         break;
                     }
 
@@ -113,9 +119,9 @@ Module.register('MMM-3Day-Forecast', {
                 tempText = document.createElement('span');
                 tempText.className = 'normal';
                 if (this.units === 'imperial') {
-                    tempText.innerHTML = this.forecast[i].highf + '&deg; F (' + this.forecast[i].highc + '&deg; C)';
+                    tempText.innerHTML = this.forecast[i].highf + '&deg; ' + this.translate("DEGF") + ' (' + this.forecast[i].highc + '&deg; ' + this.translate("DEGC") + ')';
                 } else {
-                    tempText.innerHTML = this.forecast[i].highc + '&deg; C (' + this.forecast[i].highf + '&deg; F)';
+                    tempText.innerHTML = this.forecast[i].highc + '&deg; ' + this.translate("DEGC") + ' (' + this.forecast[i].highf + '&deg; ' + this.translate("DEGF") + ')';
                     }
 
                 tempBr = document.createElement('br');
@@ -156,9 +162,9 @@ Module.register('MMM-3Day-Forecast', {
                 windText = document.createElement('span');
                 windText.className = 'normal';
                 if (this.units === 'imperial') {
-                    windText.innerHTML = this.forecast[i].wmaxm + 'Mph ' + this.forecast[i].wdir;
+                    windText.innerHTML = this.forecast[i].wmaxm + this.translate("MPH") + ' ' + this.forecast[i].wdir;
                 } else {
-                    windText.innerHTML = this.forecast[i].wmaxk + 'Kph ' + this.forecast[i].wdir;
+                    windText.innerHTML = this.forecast[i].wmaxk + this.translate("KPH") + ' ' + this.forecast[i].wdir;
                     }
 
                 //windBr = document.createElement('br');
@@ -191,7 +197,7 @@ Module.register('MMM-3Day-Forecast', {
         } else {
             // Otherwise lets just use a simple div
             wrapper = document.createElement('div');
-            wrapper.innerHTML = 'Loading forecast data...';
+            wrapper.innerHTML = this.translate("LOADING");
             }
 
         return wrapper;
