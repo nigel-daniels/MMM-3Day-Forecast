@@ -39,10 +39,10 @@ Module.register('MMM-3Day-Forecast', {
 
 
     getTranslations: function() {
-        return {
-            en: "translations/en.json"
-            }
-        }
+        return  {
+                en: "translations/en.json"
+                }
+        },
 
     getWeatherData: function(that) {
         // Make the initial request to the helper then set up the timer to perform the updates
