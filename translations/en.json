@@ -1,10 +1,5 @@
 {
-    "LOADING":      "Loading forecast data...",
-    "TODAY":        "Today",
-    "TOMORROW":     "Tomorrow",
     "DAYAFTER":     "Day After",
     "MPH":          "Mph",
-    "KPH":          "Kph",
-    "DEGC":         "C",
-    "DEGF":         "F"
+    "KPH":          "Kph"
 }
