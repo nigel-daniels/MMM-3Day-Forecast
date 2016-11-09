@@ -1,6 +1,5 @@
 {
-  /* Please specify this translation, eg. give me a sentence of where the translation is used. */
-  "DAYAFTER": "Dagen efter",
+  "DAYAFTER": "I overmorgen", /* Core translation is available for this */
   "MPH": "Mp/h",
   "KPH": "Km/t"
 }
