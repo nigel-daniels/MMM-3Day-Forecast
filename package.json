@@ -1,23 +1,23 @@
 {
-    "name":         "MMM-3Day-Forecast",
-    "version":      "1.1.0",
-    "description":  "MagicMirror 2 module to show detailed 3 day forcast using the Wunderground API.",
-    "repository":   {
+          "name": "MMM-3Day-Forecast",
+          "version": "1.1.0",
+          "description": "MagicMirror 2 module to show detailed 3 day forcast using the Wunderground API.",
+          "repository": {
                     "type": "git",
-                    "url":  "git+https://github.com/nigel-daniels/MMM-3Day-Forecast"
-                    },
-    "keywords":     [
+                    "url": "git+https://github.com/nigel-daniels/MMM-3Day-Forecast"
+          },
+          "keywords": [
                     "magic mirror",
                     "smart mirror",
                     "weather",
                     "forecast",
                     "module"
-                    ],
-    "author":       "Nigel Daniels",
-    "contributors": "https://github.com/nigel-daniels/MMM-3Day-Forecast/graphs/contributors",
-    "license":      "MIT",
-    "bugs":         {
+          ],
+          "author": "Nigel Daniels",
+          "contributors": "https://github.com/nigel-daniels/MMM-3Day-Forecast/graphs/contributors",
+          "license": "MIT",
+          "bugs": {
                     "url": "https://github.com/nigel-daniels/MMM-3Day-Forecast/issues"
-                    },
-    "homepage":     "https://github.com/nigel-daniels/MMM-3Day-Forecast#readme"
+          },
+          "homepage": "https://github.com/nigel-daniels/MMM-3Day-Forecast#readme"
 }
