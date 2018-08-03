@@ -17,7 +17,7 @@ module.exports = NodeHelper.create({
 
     getWeatherData: function(payload) {
 
-        var that = this;
+        var _this = this;
         this.url = payload;
 
         request({url: this.url, method: 'GET'}, function(error, response, body) {
@@ -28,17 +28,15 @@ module.exports = NodeHelper.create({
             if (!error && response.statusCode == 200) {
                 var forecast = []; // Clear the array
 
-                for (var i=0; i<3; i++) {
+                for (var i=0; i < 3; i++) {
                     var day = {
-                        icon:       result.forecast.simpleforecast.forecastday[i].icon,
-                        conditions: result.forecast.simpleforecast.forecastday[i].conditions,
-                        highc:      result.forecast.simpleforecast.forecastday[i].high.celsius,
-                        highf:      result.forecast.simpleforecast.forecastday[i].high.fahrenheit,
-                        pop:        result.forecast.simpleforecast.forecastday[i].pop,
-                        humid:      result.forecast.simpleforecast.forecastday[i].avehumidity,
-                        wmaxk:      result.forecast.simpleforecast.forecastday[i].avewind.kph,
-                        wmaxm:      result.forecast.simpleforecast.forecastday[i].avewind.mph,
-                        wdir:       result.forecast.simpleforecast.forecastday[i].avewind.dir
+                        icon:       result.data[i].weather.icon,
+                        conditions: result.data[i].weather.description,
+                        high:      	result.data[i].max_temp,
+                        pop:        result.data[i].pop,
+                        humid:      result.data[i].rh,
+                        wspd:      	result.data[i].wind_spd,
+                        wdir:       result.data[i].wind_cdir
                         };
 
                     forecast.push(day);
@@ -49,12 +47,10 @@ module.exports = NodeHelper.create({
                     var day = {
                         icon:       'blank',
                         conditions: 'No weather data',
-                        highc:      '--',
-                        highf:      '--',
+                        high:      	'--',
                         pop:        '--',
                         humid:      '--',
-                        wmaxk:      '--',
-                        wmaxm:      '--',
+                        wspd:      	'--',
                         wdir:       '--'
                         };
                     forecast.push(day);
@@ -62,7 +58,7 @@ module.exports = NodeHelper.create({
                 }
 
                 // We have the response figured out so lets fire off the notifiction
-                that.sendSocketNotification('GOT-3DAY-FORECAST', {'url': that.url, 'forecast': forecast});
+                _this.sendSocketNotification('GOT-3DAY-FORECAST', {'url': _this.url, 'forecast': forecast});
             });
         },
 

@@ -7,10 +7,12 @@
 
 Module.register('MMM-3Day-Forecast', {
 
-    defaults: {
+	defaults: {
             api_key:    '',
-            state:      'CA', // Supported states can be found here https://www.wunderground.com/weather/api/d/docs?d=resources/country-to-iso-matching
-            city:       'San_Jose',
+            lat:		0.0,
+            lon:		0.0,
+			units:		'M',
+			lang:		'en',
             interval:   900000 // Every 15 mins
         },
 
@@ -23,9 +25,9 @@ Module.register('MMM-3Day-Forecast', {
             }
 
         // Set up the local values, here we construct the request url to use
-        this.units = config.units;
+        this.units = this.config.units;
         this.loaded = false;
-        this.url = 'http://api.wunderground.com/api/' + this.config.api_key + '/forecast/q/' + this.config.state + '/' + this.config.city +'.json';
+		this.url = 'https://api.weatherbit.io/v2.0/forecast/daily?key=' + this.config.api_key + '&lat=' + this.config.lat + '&lon=' + this.config.lon + '&units=' + this.config.units + '&lang=' + this.config.lang + '&days=3';
         this.forecast = [];
 
         // Trigger the first request
@@ -40,20 +42,22 @@ Module.register('MMM-3Day-Forecast', {
 
     getTranslations: function() {
         return  {
-                en: 'translations/en.json'
+                en: 'translations/en.json',
+				da:	'translations/da.json'
                 };
         },
 
-    getWeatherData: function(that) {
+    getWeatherData: function(_this) {
         // Make the initial request to the helper then set up the timer to perform the updates
-        that.sendSocketNotification('GET-3DAY-FORECAST', that.url);
-        setTimeout(that.getWeatherData, that.config.interval, that);
+        _this.sendSocketNotification('GET-3DAY-FORECAST', _this.url);
+        setTimeout(_this.getWeatherData, _this.config.interval, _this);
         },
 
 
     getDom: function() {
         // Set up the local wrapper
         var wrapper = null;
+
 
         // If we have some data to display then build the results
         if (this.loaded) {
@@ -67,6 +71,8 @@ Module.register('MMM-3Day-Forecast', {
             for (var i = 0; i < 3; i++) {
                 var forecastClass = '';
                 var title = '';
+				var C = '--';
+				var F = '--';
 
                 // Determine which day we are detailing
                 switch (i) {
@@ -84,7 +90,15 @@ Module.register('MMM-3Day-Forecast', {
                         break;
                     }
 
-                console.log('Title selected: ' + title);
+				if (this.forecast[i].high !== '--') {
+					if (this.units = 'M') {
+						C = this.forecast[i].high;
+						F = Math.round( (((C*9)/5)+32) * 10 ) / 10;
+					} else {
+						F = this.forecast[i].high;
+						C = Math.round( (((F-32)*5)/9) * 10 ) / 10;
+						}
+					}
 
                 // Create the details for this day
                 forcastDay = document.createElement('td');
@@ -120,10 +134,10 @@ Module.register('MMM-3Day-Forecast', {
 
                 tempText = document.createElement('span');
                 tempText.className = 'normal';
-                if (this.units === 'imperial') {
-                    tempText.innerHTML = this.forecast[i].highf + '&deg; F (' + this.forecast[i].highc + '&deg; C)';
+                if (this.units === 'M') {
+                    tempText.innerHTML = C + '&deg; C (' + F + '&deg; F)';
                 } else {
-                    tempText.innerHTML = this.forecast[i].highc + '&deg; C (' + this.forecast[i].highf + '&deg; F)';
+					tempText.innerHTML = F + '&deg; F (' + C + '&deg; C)';
                     }
 
                 tempBr = document.createElement('br');
@@ -163,10 +177,10 @@ Module.register('MMM-3Day-Forecast', {
 
                 windText = document.createElement('span');
                 windText.className = 'normal';
-                if (this.units === 'imperial') {
-                    windText.innerHTML = this.forecast[i].wmaxm + this.translate('MPH') + ' ' + this.forecast[i].wdir;
+                if (this.units === 'M') {
+                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + this.translate('KPH') + ' ' + this.forecast[i].wdir;
                 } else {
-                    windText.innerHTML = this.forecast[i].wmaxk + this.translate('KPH') + ' ' + this.forecast[i].wdir;
+                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + this.translate('MPH') + ' ' + this.forecast[i].wdir;
                     }
 
                 //windBr = document.createElement('br');
