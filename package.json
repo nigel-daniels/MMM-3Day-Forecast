@@ -1,6 +1,6 @@
 {
           "name": "MMM-3Day-Forecast",
-          "version": "2.0.0",
+          "version": "2.0.1",
           "description": "MagicMirror 2 module to show detailed 3 day forcast using the Wunderground API.",
           "repository": {
                     "type": "git",

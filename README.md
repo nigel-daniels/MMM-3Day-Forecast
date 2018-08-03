@@ -20,7 +20,7 @@ The entry in `config.js` can include the following options:
 |`lang`|This is the two character country code for the language you want the weather in, see all the supported codes [here](https://www.weatherbit.io/api/weather-forecast-16-day).\*<br><br>**Type** `string`<br>**Default value** `en`|
 |`interval`|How often the weather is updated.<br><br>**Type:** `integer`<br>**Default value:** `900000 // 15 minutes`|
 
-\* This module itself only currently supports `en` and `da` for the text 'Day after', 'Kph' and 'Mph'.  If you have translations for these please send them over and I'll add your language to the set I can support :)
+\* This module itself only currently supports `da`, `en` and `nb` for the text 'Day after', 'Kph' and 'Mph'.  If you have translations for these please send them over and I'll add your language to the set I can support :)
 
 Here is an example of an entry in `config.js`
 ```

@@ -42,8 +42,9 @@ Module.register('MMM-3Day-Forecast', {
 
     getTranslations: function() {
         return  {
+				da:	'translations/da.json',
                 en: 'translations/en.json',
-				da:	'translations/da.json'
+				nb:	'translations/nb.json'
                 };
         },
 
