@@ -179,7 +179,7 @@ Module.register('MMM-3Day-Forecast', {
                 windText = document.createElement('span');
                 windText.className = 'normal';
                 if (this.units === 'M') {
-                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + this.translate('KPH') + ' ' + this.forecast[i].wdir;
+                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + this.translate('MPS') + ' ' + this.forecast[i].wdir;
                 } else {
                     windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + this.translate('MPH') + ' ' + this.forecast[i].wdir;
                     }
