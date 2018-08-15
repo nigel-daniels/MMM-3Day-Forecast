@@ -30,3 +30,27 @@
 .detailIcon {
     margin-right: 3px;
 }
+
+.forecastIcon2 {
+    text-align: center;
+}
+
+.forecastTitle2 {
+    font-size: 16px;
+}
+
+.forecastText2 {
+    text-align: center;
+    font-size: 16px;
+}
+
+.detailIcon2 {
+    text-align: center;
+    padding-left: 5px;
+}
+
+.detailText2 {
+    text-align: center;
+    font-size: 14px;
+    padding-left: 5px;
+}
