@@ -170,9 +170,9 @@ Module.register('MMM-3Day-Forecast', {
 					windCell = document.createElement('td');
 					windCell.className = 'detailText2';
 					if (this.units === 'M') {
-	                    windCell.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + this.translate('MPS');
+	                    windCell.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS');
 	                } else {
-	                    windCell.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + this.translate('MPH');
+	                    windCell.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPH');
 	                    }
 
 					forecastIconCell.appendChild(forecastIcon);
