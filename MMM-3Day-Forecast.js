@@ -21,10 +21,6 @@ Module.register('MMM-3Day-Forecast', {
     start:  function() {
         Log.log('Starting module: ' + this.name);
 
-        if (this.data.classes === 'MMM-3Day-Forecast') {
-            this.data.classes = 'medium';
-            }
-
         // Set up the local values, here we construct the request url to use
         this.units = this.config.units;
         this.loaded = false;
