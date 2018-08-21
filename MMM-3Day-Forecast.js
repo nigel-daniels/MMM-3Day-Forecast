@@ -60,6 +60,7 @@ Module.register('MMM-3Day-Forecast', {
 
         // If we have some data to display then build the results
         if (this.loaded) {
+
 			if (this.horizontalView) {
 				wrapper = document.createElement('table');
 				wrapper.className = 'small';
@@ -84,7 +85,7 @@ Module.register('MMM-3Day-Forecast', {
 	                    }
 
 					if (this.forecast[i].high !== '--') {
-						if (this.units = 'M') {
+						if (this.units === 'M') {
 							C = this.forecast[i].high;
 						} else {
 							F = this.forecast[i].high;
@@ -165,6 +166,7 @@ Module.register('MMM-3Day-Forecast', {
 
 					windCell = document.createElement('td');
 					windCell.className = 'detailText2';
+
 					if (this.units === 'M') {
 	                    windCell.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS');
 	                } else {
@@ -227,7 +229,7 @@ Module.register('MMM-3Day-Forecast', {
 	                    }
 
 					if (this.forecast[i].high !== '--') {
-						if (this.units = 'M') {
+						if (this.units === 'M') {
 							C = this.forecast[i].high;
 							F = Math.round( (((C*9)/5)+32) * 10 ) / 10;
 						} else {
@@ -312,9 +314,9 @@ Module.register('MMM-3Day-Forecast', {
 
 	                windText = document.createElement('span');
 	                if (this.units === 'M') {
-	                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + this.translate('MPS') + ' ' + this.forecast[i].wdir;
+	                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS') + ' ' + this.forecast[i].wdir;
 	                } else {
-	                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + this.translate('MPH') + ' ' + this.forecast[i].wdir;
+	                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPH') + ' ' + this.forecast[i].wdir;
 	                    }
 
 	                //windBr = document.createElement('br');
