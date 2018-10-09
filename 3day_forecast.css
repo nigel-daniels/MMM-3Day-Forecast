@@ -1,3 +1,10 @@
+.wi {
+  margin-right: 5px;
+  display: inline-block;
+  color: #eedddd;
+  width: 15px;
+  text-align:center;
+}
 .forecast {
     display: flex;
     text-align: center;

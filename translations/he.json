@@ -1,0 +1,16 @@
+{
+  "TODAY": "היום", 
+  "TOMORROW": "מחר",
+  "DAYAFTER": "מחרתיים", /* Core translation is available for this */
+  "MPH": "Mp/h",
+  "MPS": "m/s",
+  "Clear sky":"בהיר",
+  "Scattered clouds":"עננים מפוזרים",
+  "Overcast clouds":"מעונן",
+  "Broken clouds":"מעונן חלקית",
+  
+  "Few clouds": "עננים מעטים",
+  "Light Rain":"גשם קל",
+  "Moderate Rain":"גשם",
+  "Heavy Rain":"גשם כבד"
+}
