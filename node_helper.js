@@ -40,7 +40,8 @@ module.exports = NodeHelper.create({
 						sunrise:    result.data[i].sunrise_ts,
 						sunset:	    result.data[i].sunset_ts, 
                         wspd:      	result.data[i].wind_spd,
-                        wdir:       result.data[i].wind_cdir
+                        wdir:       result.data[i].wind_cdir,
+                        wdir_deg:   result.data[i].wind_dir
                         };
 
                     forecast.push(day);

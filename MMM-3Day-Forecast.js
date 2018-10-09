@@ -14,7 +14,6 @@ Module.register('MMM-3Day-Forecast', {
 		units: 'M',
 		lang: 'en',
 		showSunrise: true,
-	//	showSunset: true,
 		showHumidity: true,
 		showRain: true,
 		showWind: true,
@@ -39,7 +38,7 @@ Module.register('MMM-3Day-Forecast', {
 
 
 	getStyles: function () {
-		return ['weather-icons.css', '3day_forecast.css', 'font-awesome.css'];
+		return ['weather-icons-wind.css','weather-icons.css', '3day_forecast.css', 'font-awesome.css'];
 	},
 
 
@@ -67,8 +66,9 @@ Module.register('MMM-3Day-Forecast', {
 		// If we have some data to display then build the results
 		if (this.loaded) {
 
+			wrapper = document.createElement('table');
 			if (this.horizontalView) {
-				wrapper = document.createElement('table');
+
 				wrapper.className = 'small';
 
 				// Set up the forecast for three three days
@@ -97,6 +97,13 @@ Module.register('MMM-3Day-Forecast', {
 							F = this.forecast[i].high;
 						}
 					}
+					if (this.forecast[i].low !== '--') {
+						if (this.units === 'M') {
+							C = this.forecast[i].low + '&deg' + " - " + C;
+						} else {
+							F = this.forecast[i].low + '&deg' + " - " + F;
+						}
+					}
 
 					row1 = document.createElement('tr');
 
@@ -119,26 +126,22 @@ Module.register('MMM-3Day-Forecast', {
 					tempIconCell = document.createElement('td');
 					tempIconCell.className = 'detailIcon2';
 
-					tempIcon = document.createElement('img');
-					tempIcon.setAttribute('height', '15');
-					tempIcon.setAttribute('width', '15');
-					tempIcon.src = './modules/MMM-3Day-Forecast/images/high.png';
+					tempIcon = document.createElement('i');
+					tempIcon.className = 'wi wi-thermometer';
 
 					tempCell = document.createElement('td');
 					tempCell.className = 'detailText2';
 					if (this.units === 'M') {
-						tempCell.innerHTML = C + '&deg; C';
+						tempCell.innerHTML = C + '&deg'
 					} else {
-						tempCell.innerHTML = F + '&deg; F';
+						tempCell.innerHTML = F + '&deg'
 					}
-
 					rainIconCell = document.createElement('td');
 					rainIconCell.className = 'detailIcon2';
 
-					rainIcon = document.createElement('img');
-					rainIcon.setAttribute('height', '15');
-					rainIcon.setAttribute('width', '15');
-					rainIcon.src = './modules/MMM-3Day-Forecast/images/wet.png';
+					rainIcon = document.createElement('i');
+					rainIcon.className = 'wi wi-raindrops';
+
 
 					rainCell = document.createElement('td');
 					rainCell.className = 'detailText2';
@@ -148,15 +151,13 @@ Module.register('MMM-3Day-Forecast', {
 
 					forecastTextCell = document.createElement('td');
 					forecastTextCell.className = 'forecastText2';
-					forecastTextCell.innerHTML = this.forecast[i].conditions;
+					forecastTextCell.innerHTML = this.translate(this.forecast[i].conditions);
 
 					humidityIconCell = document.createElement('td');
 					humidityIconCell.className = 'detailIcon2';
 
-					humidityIcon = document.createElement('img');
-					humidityIcon.setAttribute('height', '15');
-					humidityIcon.setAttribute('width', '15');
-					humidityIcon.src = './modules/MMM-3Day-Forecast/images/humid.png';
+					humidityIcon = document.createElement('i');
+					humidityIcon.className = 'wi wi-humidity';
 
 					humidityCell = document.createElement('td');
 					humidityCell.className = 'detailText2';
@@ -165,10 +166,10 @@ Module.register('MMM-3Day-Forecast', {
 					windIconCell = document.createElement('td');
 					windIconCell.className = 'detailIcon2';
 
-					windIcon = document.createElement('img');
-					windIcon.setAttribute('height', '15');
-					windIcon.setAttribute('width', '15');
-					windIcon.src = './modules/MMM-3Day-Forecast/images/' + this.forecast[i].wdir + '.png';
+					windIcon = document.createElement('i');
+					windIcon.className = 'wi wi-wind towards-' + this.forecast[i].wdir_deg + '-deg';
+
+					//windIcon.src = './modules/MMM-3Day-Forecast/images/' + this.forecast[i].wdir + '.png';
 
 					windCell = document.createElement('td');
 					windCell.className = 'detailText2';
@@ -206,7 +207,7 @@ Module.register('MMM-3Day-Forecast', {
 				}
 
 			} else {
-				wrapper = document.createElement('table');
+
 				wrapper.className = 'forecast small';
 
 				forecastRow = document.createElement('tr');
@@ -268,7 +269,7 @@ Module.register('MMM-3Day-Forecast', {
 
 					forecastText = document.createElement('div');
 					forecastText.className = 'forecastText horizontalView bright';
-					
+
 					forecastText.innerHTML = this.translate(this.forecast[i].conditions);
 
 					forecastBr = document.createElement('br');
@@ -319,7 +320,7 @@ Module.register('MMM-3Day-Forecast', {
 					sunriseText = document.createElement('span');
 					var sunrise = new Date((this.forecast[i].sunrise) * 1000);
 					var sunset = new Date((this.forecast[i].sunset) * 1000);
-					sunriseText.innerHTML = sunrise.getHours() + ":" + sunrise.getMinutes()+" / "+sunset.getHours() + ":" + sunset.getMinutes();
+					sunriseText.innerHTML = sunrise.getHours() + ":" + sunrise.getMinutes() + " / " + sunset.getHours() + ":" + sunset.getMinutes();
 					sunriseBr = document.createElement('br');
 
 					// Build up the details regarding sunset
@@ -335,7 +336,7 @@ Module.register('MMM-3Day-Forecast', {
 
 					// Build up the details regarding wind
 					windIcon = document.createElement('i');
-					windIcon.className = 'wi wi-strong-wind';
+					windIcon.className = 'wi wi-wind towards-' + this.forecast[i].wdir_deg + '-deg';
 
 					windText = document.createElement('span');
 					if (this.units === 'M') {
@@ -366,15 +367,11 @@ Module.register('MMM-3Day-Forecast', {
 						forecastDetail.appendChild(sunriseText);
 						forecastDetail.appendChild(sunriseBr);
 					}
-				/*	if (this.config.showSunset) {
-						forecastDetail.appendChild(sunsetIcon);
-						forecastDetail.appendChild(sunsetText);
-						forecastDetail.appendChild(sunsetBr);
-					}*/
+				
 					if (this.config.showWind) {
-					forecastDetail.appendChild(windIcon);
-					forecastDetail.appendChild(windText);
-					//forecastDetail.appendChild(windBr);\
+						forecastDetail.appendChild(windIcon);
+						forecastDetail.appendChild(windText);
+						//forecastDetail.appendChild(windBr);\
 					}
 
 					forcastDay.appendChild(forcastTitle);
