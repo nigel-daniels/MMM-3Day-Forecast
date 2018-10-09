@@ -21,6 +21,9 @@ The entry in `config.js` can include the following options:
 |`horizontalView`|This switches the look to use a more compact and horizontal view.<br><br>**Type** `boolean`<br>**Default value** `false`|
 |`interval`|How often the weather is updated.<br><br>**Type:** `integer`<br>**Default value:** `900000 // 15 minutes`|
 |`showSunrise`|Used to display (or not) sunrise and sunset. work on `horizontalView = false` <br><br>**Type:** `boolean`<br>**Default value:** `true`|
+|`showHumidity`|Used to display (or not) humidity. work on `horizontalView = false` <br><br>**Type:** `boolean`<br>**Default value:** `true`|
+|`showRain`|Used to display (or not) rain probility. work on `horizontalView = false` <br><br>**Type:** `boolean`<br>**Default value:** `true`|
+|`showWind`|Used to display (or not) wind. work on `horizontalView = false` <br><br>**Type:** `boolean`<br>**Default value:** `true`|
 
 \* This module itself only currently supports `da`, `en` and `nb` for the text 'Day after', 'Kph' and 'Mph'.  If you have translations for these please send them over and I'll add your language to the set I can support :)
 
