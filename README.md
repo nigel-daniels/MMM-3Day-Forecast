@@ -22,7 +22,7 @@ The entry in `config.js` can include the following options:
 |`interval`|How often the weather is updated.<br><br>**Type:** `integer`<br>**Default value:** `900000 // 15 minutes`|
 |`showSunrise`|Used to display (or not) sunrise and sunset. work on `horizontalView = false` <br><br>**Type:** `boolean`<br>**Default value:** `true`|
 |`showHumidity`|Used to display (or not) humidity. work on `horizontalView = false` <br><br>**Type:** `boolean`<br>**Default value:** `true`|
-|`showRain`|Used to display (or not) rain probility. work on `horizontalView = false` <br><br>**Type:** `boolean`<br>**Default value:** `true`|
+|`showRain`|Used to display (or not) rain probability. work on `horizontalView = false` <br><br>**Type:** `boolean`<br>**Default value:** `true`|
 |`showWind`|Used to display (or not) wind. work on `horizontalView = false` <br><br>**Type:** `boolean`<br>**Default value:** `true`|
 
 \* This module itself only currently supports `da`, `en` and `nb` for the text 'Day after', 'Kph' and 'Mph'.  If you have translations for these please send them over and I'll add your language to the set I can support :)
@@ -45,6 +45,9 @@ Here is an example of an entry in `config.js`
 
 ## Dependencies
 - [request](https://www.npmjs.com/package/request) (installed via `npm install`)
+
+## Translation
+- To translate forcast description add to your language.json you need to add the description from [here](https://www.weatherbit.io/api/codes) and translate it.
 
 ## Notes
 I hope you like this module, I know it duplicates many other weather modules, however I missed my home-brew mirrors weather information so I recreated it for MM2.  Feel free to submit pull requests or post issues and I'll do my best to respond.
