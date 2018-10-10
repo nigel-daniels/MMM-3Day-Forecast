@@ -150,10 +150,8 @@ Module.register('MMM-3Day-Forecast', {
 					forecastIconCell.className = 'forecastIcon2';
 					forecastIconCell.setAttribute('rowspan', '2');
 
-					forecastIcon = document.createElement('img');
-					forecastIcon.setAttribute('height', '50');
-					forecastIcon.setAttribute('width', '50');
-					forecastIcon.src = './modules/MMM-3Day-Forecast/images/' + this.forecast[i].icon + '.gif';
+					forecastIcon = document.createElement('i');
+					forecastIcon.className = 'wi ' + this.config.codeIconTable[this.forecast[i].code];
 
 					forecastTitleCell = document.createElement('td');
 					forecastTitleCell.className = 'forecastTitle2 bright';
