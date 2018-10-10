@@ -18,7 +18,7 @@ Module.register('MMM-3Day-Forecast', {
 		showRain: true,
 		showWind: true,
 		horizontalView: false,
-		interval: 900000 // Every 15 mins
+		interval: 900000, // Every 15 mins
 		codeIconTable: {
 			  "201": "wi-thunderstorm",
 			  "202": "wi-thunderstorm",
