@@ -151,7 +151,7 @@ Module.register('MMM-3Day-Forecast', {
 					forecastIconCell.setAttribute('rowspan', '2');
 
 					forecastIcon = document.createElement('i');
-					forecastIcon.className = 'wi ' + this.config.codeIconTable[this.forecast[i].code];
+					forecastIcon.className = 'forecastIcon2 wi ' + this.config.codeIconTable[this.forecast[i].code];
 
 					forecastTitleCell = document.createElement('td');
 					forecastTitleCell.className = 'forecastTitle2 bright';
@@ -299,7 +299,7 @@ Module.register('MMM-3Day-Forecast', {
 					forcastTitle.innerHTML = title;
 
 					forecastIcon = document.createElement('i');
-					forecastIcon.className = 'wi ' + this.config.codeIconTable[this.forecast[i].code];
+					forecastIcon.className = 'forecastIcon2 wi ' + this.config.codeIconTable[this.forecast[i].code];
 					
 					forecastText = document.createElement('div');
 					forecastText.className = 'forecastText horizontalView bright';

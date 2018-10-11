@@ -1,63 +1,66 @@
 .wi {
-  margin-right: 5px;
-  display: inline-block;
-  color: #eedddd;
-  width: 15px;
-  text-align:center;
-}
-.forecast {
-    display: flex;
-    text-align: center;
-}
-
-.tomorrow {
-    padding-left: 10px;
-}
-
-.dayAfter {
-    padding-left: 10px;
-}
-
-.forcastDay img {
     margin-right: 5px;
-}
-.forecastTitle {
-    font-size: 20px;
-}
-.forecastText {
-    font-size: 16px
-}
-.forecastDetail {
-    text-align: left;
-    font-size: 14px;
-    margin-left: 5px;
-    margin-top: -25px;
-}
-
-.detailIcon {
-    margin-right: 3px;
-}
-
-.forecastIcon2 {
-    text-align: center;
-}
-
-.forecastTitle2 {
-    font-size: 16px;
-}
-
-.forecastText2 {
-    text-align: center;
-    font-size: 16px;
-}
-
-.detailIcon2 {
-    text-align: center;
-    padding-left: 5px;
-}
-
-.detailText2 {
-    text-align: left;
-    font-size: 14px;
-    padding-left: 5px;
-}
+    display: inline-block;
+    color: #eedddd;
+    width: 15px;
+    text-align:center;
+  }
+  .forecast {
+      display: flex;
+      text-align: center;
+  }
+  
+  .tomorrow {
+      padding-left: 10px;
+  }
+  
+  .dayAfter {
+      padding-left: 10px;
+  }
+  
+  .forcastDay img {
+      margin-right: 5px;
+  }
+  .forecastTitle {
+      font-size: 20px;
+  }
+  .forecastText {
+      font-size: 16px
+  }
+  .forecastDetail {
+      text-align: left;
+      font-size: 14px;
+      margin-left: 5px;
+      margin-top: -25px;
+  }
+  
+  .detailIcon {
+      margin-right: 3px;
+  }
+  
+  .forecastIcon2 {
+      font-size: 1.7em;
+      margin-top:  0.3em;
+      margin-left: -0.6em;
+  }
+  
+  .forecastTitle2 {
+      font-size: 16px;
+  }
+  
+  .forecastText2 {
+      text-align: center;
+      font-size: 16px;
+  }
+  
+  .detailIcon2 {
+      text-align: center;
+      padding-left: 5px;
+  }
+  
+  .detailText2 {
+      text-align: left;
+      font-size: 14px;
+      padding-left: 5px;
+  }
+  
