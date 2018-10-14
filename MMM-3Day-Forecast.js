@@ -1,4 +1,4 @@
-/* Magic Mirror Module: MMM-FAA-Delay
+/* Magic Mirror Module: MMM-3Day-Forecast
  * Version: 1.0.0
  *
  * By Nigel Daniels https://github.com/nigel-daniels/
