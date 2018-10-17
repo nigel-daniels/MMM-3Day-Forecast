@@ -354,7 +354,8 @@ Module.register('MMM-3Day-Forecast', {
 					sunriseText = document.createElement('span');
 					var sunrise = new Date((this.forecast[i].sunrise) * 1000);
 					var sunset = new Date((this.forecast[i].sunset) * 1000);
-					sunriseText.innerHTML = sunrise.getHours() + ":" + sunrise.getMinutes() + " / " + sunset.getHours() + ":" + sunset.getMinutes();
+					sunriseText.innerHTML = sunrise.getHours() + ":" +(sunrise.getMinutes()<10?'0':'') + 
+						sunrise.getMinutes() + " / " + sunset.getHours() + ":" +(sunset.getMinutes()<10?'0':'') +  sunset.getMinutes();
 					sunriseBr = document.createElement('br');
 
 					// Build up the details regarding sunset
