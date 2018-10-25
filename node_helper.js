@@ -32,11 +32,16 @@ module.exports = NodeHelper.create({
                     var day = {
                         icon:       result.data[i].weather.icon,
                         conditions: result.data[i].weather.description,
-                        high:      	result.data[i].max_temp,
+						code: 		result.data[i].weather.code,
+                        high:      	Math.trunc(result.data[i].max_temp),
+						low:		Math.trunc(result.data[i].min_temp),
                         pop:        result.data[i].pop,
                         humid:      result.data[i].rh,
+						sunrise:    result.data[i].sunrise_ts,
+						sunset:	    result.data[i].sunset_ts, 
                         wspd:      	result.data[i].wind_spd,
-                        wdir:       result.data[i].wind_cdir
+                        wdir:       result.data[i].wind_cdir,
+                        wdir_deg:   result.data[i].wind_dir
                         };
 
                     forecast.push(day);
