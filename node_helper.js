@@ -58,7 +58,7 @@ module.exports = NodeHelper.create({
                 }
 
                 // We have the response figured out so lets fire off the notifiction
-                _this.sendSocketNotification('GOT-3DAY-FORECAST', {'url': _this.url, 'forecast': forecast});
+                _this.sendSocketNotification('GOT-3DAY-FORECAST', {'url': response.request.uri.href, 'forecast': forecast});
             });
         },
 
