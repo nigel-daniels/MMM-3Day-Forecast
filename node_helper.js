@@ -23,10 +23,10 @@ module.exports = NodeHelper.create({
         request({url: this.url, method: 'GET'}, function(error, response, body) {
             // Lets convert the body into JSON
             var result = JSON.parse(body);
+            var forecast = []; // Clear the array
 
             // Check to see if we are error free and got an OK response
             if (!error && response.statusCode == 200) {
-                var forecast = []; // Clear the array
 
                 for (var i=0; i < 3; i++) {
                     var day = {
