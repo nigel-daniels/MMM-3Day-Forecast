@@ -21,7 +21,7 @@ The entry in `config.js` can include the following options:
 |`horizontalView`|This switches the look to use a more compact and horizontal view.<br><br>**Type** `boolean`<br>**Default value** `false`|
 |`interval`|How often the weather is updated.<br><br>**Type:** `integer`<br>**Default value:** `900000 // 15 minutes`|
 
-\* This module itself only currently supports `da`, `en` and `nb` for the text 'Day after', 'Kph' and 'Mph'.  If you have translations for these please send them over and I'll add your language to the set I can support :)
+\* This module itself only currently supports `da`, `en`, `de`, `it`, `nb`, `zh-tw` and `nl` for the text 'Day after', 'Kph' and 'Mph'.  If you have translations for these please send them over and I'll add your language to the set I can support :)
 
 Here is an example of an entry in `config.js`
 ```
