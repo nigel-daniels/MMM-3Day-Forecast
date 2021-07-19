@@ -43,6 +43,7 @@ Module.register('MMM-3Day-Forecast', {
 				da:	'translations/da.json',
 				de:	'translations/de.json',
                 en: 'translations/en.json',
+                fr: 'translations/fr.json',
 				nb:	'translations/nb.json',
 				it:	'translations/it.json'
                 };
