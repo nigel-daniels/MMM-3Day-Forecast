@@ -45,6 +45,7 @@ Module.register('MMM-3Day-Forecast', {
                 en: 'translations/en.json',
                 fr: 'translations/fr.json',
 				nb:	'translations/nb.json',
+				nl:	'translations/nl.json',
 				it:	'translations/it.json'
                 };
         },
