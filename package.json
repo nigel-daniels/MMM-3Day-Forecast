@@ -19,5 +19,8 @@
           "bugs": {
                     "url": "https://github.com/nigel-daniels/MMM-3Day-Forecast/issues"
           },
-          "homepage": "https://github.com/nigel-daniels/MMM-3Day-Forecast#readme"
+          "homepage": "https://github.com/nigel-daniels/MMM-3Day-Forecast#readme",
+          "dependencies": {
+                    "request": "^2.88.2"
+          }
 }
