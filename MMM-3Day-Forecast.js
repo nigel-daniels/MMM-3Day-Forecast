@@ -14,7 +14,7 @@ Module.register('MMM-3Day-Forecast', {
 			units:		'M',
 			lang:		'en',
 			horizontalView:	false,
-            interval:   900000 // Every 15 mins
+            interval:   3600000 // Every hour
         },
 
 
