@@ -23,10 +23,10 @@ module.exports = NodeHelper.create({
         request({url: this.url, method: 'GET'}, function(error, response, body) {
             // Lets convert the body into JSON
             var result = JSON.parse(body);
+            var forecast = []; // Clear the array
 
             // Check to see if we are error free and got an OK response
             if (!error && response.statusCode == 200) {
-                var forecast = []; // Clear the array
 
                 for (var i=0; i < 3; i++) {
                     var day = {
@@ -58,7 +58,7 @@ module.exports = NodeHelper.create({
                 }
 
                 // We have the response figured out so lets fire off the notifiction
-                _this.sendSocketNotification('GOT-3DAY-FORECAST', {'url': _this.url, 'forecast': forecast});
+                _this.sendSocketNotification('GOT-3DAY-FORECAST', {'url': response.request.uri.href, 'forecast': forecast});
             });
         },
 
