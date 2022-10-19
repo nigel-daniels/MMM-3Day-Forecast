@@ -14,7 +14,7 @@ Module.register('MMM-3Day-Forecast', {
 			units:		'M',
 			lang:		'en',
 			horizontalView:	false,
-            interval:   3600000 // Every hour
+            interval:   900000 // Every 15 mins
         },
 
 
@@ -22,9 +22,9 @@ Module.register('MMM-3Day-Forecast', {
         Log.log('Starting module: ' + this.name);
 
         // Set up the local values, here we construct the request url to use
-        this.units = this.config.units;
+        this.units = this.config.units==='I'?'imperial':'metric';
         this.loaded = false;
-		this.url = 'https://api.weatherbit.io/v2.0/forecast/daily?key=' + this.config.api_key + '&lat=' + this.config.lat + '&lon=' + this.config.lon + '&units=' + this.config.units + '&lang=' + this.config.lang + '&days=3';
+		this.url = 'https://api.openweathermap.org/data/2.5/forecast?appid=' + this.config.api_key + '&lat=' + this.config.lat + '&lon=' + this.config.lon + '&units=' + this.units + '&lang=' + this.config.lang + '&cnt=24';
         this.forecast = [];
 		this.horizontalView = this.config.horizontalView;
 
@@ -90,7 +90,7 @@ Module.register('MMM-3Day-Forecast', {
 	                    }
 
 					if (this.forecast[i].high !== '--') {
-						if (this.units === 'M') {
+						if (this.units === 'metric') {
 							C = this.forecast[i].high;
 						} else {
 							F = this.forecast[i].high;
@@ -106,7 +106,7 @@ Module.register('MMM-3Day-Forecast', {
 					forecastIcon = document.createElement('img');
 	                forecastIcon.setAttribute('height', '50');
 	                forecastIcon.setAttribute('width', '50');
-	                forecastIcon.src = './modules/MMM-3Day-Forecast/images/' + this.forecast[i].icon + '.gif';
+	                forecastIcon.src = './modules/MMM-3Day-Forecast/images/icon/' + this.forecast[i].icon + '.gif';
 
 					forecastTitleCell = document.createElement('td');
 					forecastTitleCell.className = 'forecastTitle2 bright';
@@ -125,7 +125,7 @@ Module.register('MMM-3Day-Forecast', {
 
 					tempCell = document.createElement('td');
 					tempCell.className = 'detailText2';
-					if (this.units === 'M') {
+					if (this.units === 'metric') {
 	                    tempCell.innerHTML = C + '&deg; C';
 	                } else {
 						tempCell.innerHTML = F + '&deg; F';
@@ -167,12 +167,12 @@ Module.register('MMM-3Day-Forecast', {
 					windIcon = document.createElement('img');
 	                windIcon.setAttribute('height', '15');
 	                windIcon.setAttribute('width', '15');
-	                windIcon.src = './modules/MMM-3Day-Forecast/images/' + this.forecast[i].wdir + '.png';
+	                windIcon.src = './modules/MMM-3Day-Forecast/images/dir/' + this.forecast[i].wdir + '.png';
 
 					windCell = document.createElement('td');
 					windCell.className = 'detailText2';
 
-					if (this.units === 'M') {
+					if (this.units === 'metric') {
 	                    windCell.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS');
 	                } else {
 	                    windCell.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPH');
@@ -234,7 +234,7 @@ Module.register('MMM-3Day-Forecast', {
 	                    }
 
 					if (this.forecast[i].high !== '--') {
-						if (this.units === 'M') {
+						if (this.units === 'metric') {
 							C = this.forecast[i].high;
 							F = Math.round( (((C*9)/5)+32) * 10 ) / 10;
 						} else {
@@ -255,7 +255,7 @@ Module.register('MMM-3Day-Forecast', {
 	                forecastIcon.className = 'forecastIcon';
 	                forecastIcon.setAttribute('height', '50');
 	                forecastIcon.setAttribute('width', '50');
-	                forecastIcon.src = './modules/MMM-3Day-Forecast/images/' + this.forecast[i].icon + '.gif';
+	                forecastIcon.src = './modules/MMM-3Day-Forecast/images/icon/' + this.forecast[i].icon + '.gif';
 
 	                forecastText = document.createElement('div');
 	                forecastText.className = 'forecastText horizontalView bright';
@@ -277,7 +277,7 @@ Module.register('MMM-3Day-Forecast', {
 
 	                tempText = document.createElement('span');
 	                tempText.className = 'normal';
-	                if (this.units === 'M') {
+	                if (this.units === 'metric') {
 	                    tempText.innerHTML = C + '&deg; C (' + F + '&deg; F)';
 	                } else {
 						tempText.innerHTML = F + '&deg; F (' + C + '&deg; C)';
@@ -318,7 +318,7 @@ Module.register('MMM-3Day-Forecast', {
 	                windIcon.src = './modules/MMM-3Day-Forecast/images/wind.png';
 
 	                windText = document.createElement('span');
-	                if (this.units === 'M') {
+	                if (this.units === 'metric') {
 	                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS') + ' ' + this.forecast[i].wdir;
 	                } else {
 	                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPH') + ' ' + this.forecast[i].wdir;
