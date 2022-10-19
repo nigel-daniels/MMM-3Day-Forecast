@@ -6,7 +6,6 @@
  */
 
 var NodeHelper = require('node_helper');
-var Log = require('logger');
 var date = require('date-fns');
 var dateTZ = require('date-fns-tz');
 var request = require('request');
@@ -45,7 +44,7 @@ module.exports = NodeHelper.create({
                     wdir:       _this.degToDir(result.list[0].wind.deg)
                     };
 
-                // Now let's go through the list 
+                // Now let's go through the list
                 result.list.forEach((element, i) => {
                     // Localize the timestamp for our zone
                     var dateTime = dateTZ.utcToZonedTime(date.fromUnixTime(element.dt));
@@ -54,7 +53,7 @@ module.exports = NodeHelper.create({
                     if ( date.isTomorrow(dateTime) ) {
                         _this.populateDay(tomorrow, element, dateTime);
                     }
-                    
+
                     // This will the day afters forecast
                     if (date.differenceInDays(dateTime, now) === 2) {
                         _this.populateDay(dayafter, element, dateTime);
@@ -93,7 +92,7 @@ module.exports = NodeHelper.create({
             this.getWeatherData(payload);
             }
         },
-    
+
     populateDay: function(day, element, dateTime) {
         day.high = this.getHighValue(day.high, element.main.temp_max);
         day.pop = this.getHighValue(day.pop, element.pop);
@@ -110,7 +109,7 @@ module.exports = NodeHelper.create({
             day.icon = element.weather[0].icon;
             day.conditions = element.weather[0].description;
         }
-    
+
         return day;
     },
 
@@ -136,7 +135,7 @@ module.exports = NodeHelper.create({
                 break;
             case deg < 56.75:
                 return 'NE';
-                break;    
+                break;
             case deg < 78.75:
                 return 'ENE';
                 break;
@@ -145,7 +144,7 @@ module.exports = NodeHelper.create({
                 break;
             case deg < 123.75:
                 return 'ESE';
-                break; 
+                break;
             case deg < 146.25:
                 return 'SE';
                 break;
@@ -154,7 +153,7 @@ module.exports = NodeHelper.create({
                 break;
             case deg < 191.25:
                 return 'S';
-                break;    
+                break;
             case deg < 213.75:
                 return 'SSW';
                 break;
@@ -172,7 +171,7 @@ module.exports = NodeHelper.create({
                 break;
             case deg < 326.25:
                 return 'NW';
-                break;    
+                break;
             case deg < 348.75:
                 return 'NNW';
                 break;
