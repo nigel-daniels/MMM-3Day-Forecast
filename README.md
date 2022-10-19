@@ -1,7 +1,7 @@
 # MMM-3Day-Forecast
 ![3 day forecast](3day.png "3 day forecast.") OR ![3 day forecast](3-day2.png "3 day forecast.")
 
-This a module for the [MagicMirror](https://github.com/MichMich/MagicMirror/tree/develop).  This module shows a 3 day forecast (today, tomorrow and the day after) using the Wunderground API. It displays the overall weather condition, highest temperature, likely-hood of rain, average humidity, highest windspeed and its direction forecast.  This is designed to compliment the [MMM-Weather-Now](https://github.com/nigel-daniels/MMM-Weather-Now) module.<br>  
+This a module for the [MagicMirror](https://github.com/MichMich/MagicMirror/tree/develop).  This module shows a 3 day forecast (today, tomorrow and the day after) using the Open Weather API. Todays forecasts the conditions over the next few hours and the Tomorrow and Day After forecasts are based on the conditions around midday. It displays the overall weather condition, highest temperature, likely-hood of rain, average humidity, highest windspeed and its direction forecast.  This is designed to compliment the [MMM-Weather-Now](https://github.com/nigel-daniels/MMM-Weather-Now) module.<br>  
 **Note:** This module used to use BitWeather but they reduced the free calls to an unusable amount :-( As of Oct 2022 the module has migrated to using the [Open Weather](https://openweathermap.org) API. The only thing you should need to change in the config is your `api_key` (See below).
 
 ## Installation
