@@ -7,7 +7,6 @@
 
 var NodeHelper = require('node_helper');
 var date = require('date-fns');
-var dateTZ = require('date-fns-tz');
 var request = require('request');
 
 module.exports = NodeHelper.create({
