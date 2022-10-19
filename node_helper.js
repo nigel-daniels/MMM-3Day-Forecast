@@ -46,8 +46,8 @@ module.exports = NodeHelper.create({
 
                 // Now let's go through the list
                 result.list.forEach((element, i) => {
-                    // Localize the timestamp for our zone
-                    var dateTime = dateTZ.utcToZonedTime(date.fromUnixTime(element.dt));
+                    // The timestamp is in UTC so we need to localize for the systems TZ
+                    var dateTime = date.addMinutes(date.fromUnixTime(element.dt), now.getTimezoneOffset());
 
                     // This will build tomorrows forecast
                     if ( date.isTomorrow(dateTime) ) {
@@ -94,18 +94,20 @@ module.exports = NodeHelper.create({
         },
 
     populateDay: function(day, element, dateTime) {
+		// Check to see if we have any new highs in temp, chance of rain, humidity, and wind speed
         day.high = this.getHighValue(day.high, element.main.temp_max);
         day.pop = this.getHighValue(day.pop, element.pop);
         day.humid = this.getHighValue(day.humid, element.main.humidity);
-
         day.wspd = this.getHighValue(day.wspd, element.wind.speed);
 
+		// If we have a new windspeed high let's record the direction
         if (day.wspd <= element.wind.speed) {
-            day.wspd = element.wind.speed;
             day.wdir = this.degToDir(element.wind.deg);
         }
 
-        if (date.getHours(dateTime) === 12) {
+		// If we have the weather over the midday period let's record the weather
+		var hour = date.getHours(dateTime);
+        if (hour >= 10 && hour <= 14) {
             day.icon = element.weather[0].icon;
             day.conditions = element.weather[0].description;
         }
