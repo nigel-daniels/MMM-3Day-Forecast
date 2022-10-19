@@ -55,7 +55,7 @@ module.exports = NodeHelper.create({
                     }
 
                     // This will the day afters forecast
-                    if (date.differenceInDays(dateTime, now) === 2) {
+                    if (date.isSameDay(dateTime, date.addDays(now, 2)) ) {
                         _this.populateDay(dayafter, element, dateTime);
                     }
 
