@@ -46,7 +46,7 @@ module.exports = NodeHelper.create({
                 // Now let's go through the list
                 result.list.forEach((element, i) => {
                     // The timestamp is in UTC so we need to localize for the systems TZ
-                    var dateTime = date.addMinutes(date.fromUnixTime(element.dt), now.getTimezoneOffset());
+                    var dateTime = date.fromUnixTime(element.dt);
 
                     // This will build tomorrows forecast
                     if ( date.isTomorrow(dateTime) ) {

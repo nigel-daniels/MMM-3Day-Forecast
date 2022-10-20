@@ -126,9 +126,9 @@ Module.register('MMM-3Day-Forecast', {
 					tempCell = document.createElement('td');
 					tempCell.className = 'detailText2';
 					if (this.units === 'metric') {
-	                    tempCell.innerHTML = C + '&deg; C';
+	                    tempCell.innerHTML = Math.round(C) + '&deg; C';
 	                } else {
-						tempCell.innerHTML = F + '&deg; F';
+						tempCell.innerHTML = Math.round(F) + '&deg; F';
 	                    }
 
 					rainIconCell = document.createElement('td');
@@ -141,7 +141,7 @@ Module.register('MMM-3Day-Forecast', {
 
 					rainCell = document.createElement('td');
 					rainCell.className = 'detailText2';
-					rainCell.innerHTML = this.forecast[i].pop + '%';
+					rainCell.innerHTML = Math.round(this.forecast[i].pop) + '%';
 
 					row3 = document.createElement('tr');
 
@@ -159,7 +159,7 @@ Module.register('MMM-3Day-Forecast', {
 
 					humidityCell = document.createElement('td');
 					humidityCell.className = 'detailText2';
-					humidityCell.innerHTML = this.forecast[i].humid + '%';
+					humidityCell.innerHTML = Math.round(this.forecast[i].humid) + '%';
 
 					windIconCell = document.createElement('td');
 					windIconCell.className = 'detailIcon2';
@@ -173,9 +173,9 @@ Module.register('MMM-3Day-Forecast', {
 					windCell.className = 'detailText2';
 
 					if (this.units === 'metric') {
-	                    windCell.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS');
+	                    windCell.innerHTML = Math.round((this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS');
 	                } else {
-	                    windCell.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPH');
+	                    windCell.innerHTML = Math.round((this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPH');
 	                    }
 
 					forecastIconCell.appendChild(forecastIcon);
@@ -236,10 +236,10 @@ Module.register('MMM-3Day-Forecast', {
 					if (this.forecast[i].high !== '--') {
 						if (this.units === 'metric') {
 							C = this.forecast[i].high;
-							F = Math.round( (((C*9)/5)+32) * 10 ) / 10;
+							F = ((((C*9)/5)+32) * 10 ) / 10;
 						} else {
 							F = this.forecast[i].high;
-							C = Math.round( (((F-32)*5)/9) * 10 ) / 10;
+							C = ((((F-32)*5)/9) * 10 ) / 10;
 							}
 						}
 
@@ -278,9 +278,9 @@ Module.register('MMM-3Day-Forecast', {
 	                tempText = document.createElement('span');
 	                tempText.className = 'normal';
 	                if (this.units === 'metric') {
-	                    tempText.innerHTML = C + '&deg; C (' + F + '&deg; F)';
+	                    tempText.innerHTML = Math.round(C) + '&deg; C (' + Math.round(F) + '&deg; F)';
 	                } else {
-						tempText.innerHTML = F + '&deg; F (' + C + '&deg; C)';
+						tempText.innerHTML = Math.round(F) + '&deg; F (' + Math.round(C) + '&deg; C)';
 	                    }
 
 	                tempBr = document.createElement('br');
@@ -293,7 +293,7 @@ Module.register('MMM-3Day-Forecast', {
 	                rainIcon.src = './modules/MMM-3Day-Forecast/images/wet.png';
 
 	                rainText = document.createElement('span');
-	                rainText.innerHTML = this.forecast[i].pop + '%';
+	                rainText.innerHTML = Math.round(this.forecast[i].pop) + '%';
 
 	                rainBr = document.createElement('br');
 
@@ -306,7 +306,7 @@ Module.register('MMM-3Day-Forecast', {
 
 	                humidText = document.createElement('span');
 	                humidText.className = 'normal';
-	                humidText.innerHTML = this.forecast[i].humid + '%';
+	                humidText.innerHTML = Math.round(this.forecast[i].humid) + '%';
 
 	                humidBr = document.createElement('br');
 
@@ -319,9 +319,9 @@ Module.register('MMM-3Day-Forecast', {
 
 	                windText = document.createElement('span');
 	                if (this.units === 'metric') {
-	                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS') + ' ' + this.forecast[i].wdir;
+	                    windText.innerHTML = Math.round((this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS') + ' ' + this.forecast[i].wdir;
 	                } else {
-	                    windText.innerHTML = (Math.round(this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPH') + ' ' + this.forecast[i].wdir;
+	                    windText.innerHTML = Math.round((this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPH') + ' ' + this.forecast[i].wdir;
 	                    }
 
 	                //windBr = document.createElement('br');
