@@ -141,7 +141,7 @@ Module.register('MMM-3Day-Forecast', {
 
 					rainCell = document.createElement('td');
 					rainCell.className = 'detailText2';
-					rainCell.innerHTML = Math.round(this.forecast[i].pop) + '%';
+					rainCell.innerHTML = (this.forecast[i].pop * 100) + '%';
 
 					row3 = document.createElement('tr');
 
@@ -293,7 +293,7 @@ Module.register('MMM-3Day-Forecast', {
 	                rainIcon.src = './modules/MMM-3Day-Forecast/images/wet.png';
 
 	                rainText = document.createElement('span');
-	                rainText.innerHTML = Math.round(this.forecast[i].pop) + '%';
+	                rainText.innerHTML = (this.forecast[i].pop * 100) + '%';
 
 	                rainBr = document.createElement('br');
 
