@@ -13,7 +13,7 @@ The entry in `config.js` can include the following options:
 
 |Option|Description|
 |---|---|
-|`api_key`|**Required** This is the API key you need to use to request weather data from the Weather Underground site.  Details on how to request an API key can be found [here](https://openweathermap.org/home/sign_up)<br><br>**Type:** `string`<br>**Default value:** `null`|
+|`api_key`|**Required** This is the API key you need to use to request weather data from the OpenWeather site.  Details on how to request an API key can be found [here](https://openweathermap.org/home/sign_up)<br><br>**Type:** `string`<br>**Default value:** `null`|
 |`lat`|This is the latitude of the location you want to get the weather for.<br><br>**Type:** `number`<br>**Default value:** `0.0`|
 |`lon`|This is the longitude of the location you want to get the weather for.<br><br>**Type:** `number`<br>**Default value:** `0.0`|
 |`units`|This is the units you want the weather reporting in.<br>**Type** `string` Use `M` for metric OR `I` for imperial.<br>**Default value:** `M`|
