@@ -236,10 +236,8 @@ Module.register('MMM-3Day-Forecast', {
 					if (this.forecast[i].high !== '--') {
 						if (this.units === 'metric') {
 							C = this.forecast[i].high;
-							F = ((((C*9)/5)+32) * 10 ) / 10;
 						} else {
 							F = this.forecast[i].high;
-							C = ((((F-32)*5)/9) * 10 ) / 10;
 							}
 						}
 
@@ -278,9 +276,9 @@ Module.register('MMM-3Day-Forecast', {
 	                tempText = document.createElement('span');
 	                tempText.className = 'normal';
 	                if (this.units === 'metric') {
-	                    tempText.innerHTML = Math.round(C) + '&deg; C (' + Math.round(F) + '&deg; F)';
+	                    tempText.innerHTML = Math.round(C) + '&deg; C';
 	                } else {
-						tempText.innerHTML = Math.round(F) + '&deg; F (' + Math.round(C) + '&deg; C)';
+						tempText.innerHTML = Math.round(F) + '&deg; F';
 	                    }
 
 	                tempBr = document.createElement('br');
