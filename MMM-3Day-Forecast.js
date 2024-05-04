@@ -24,7 +24,7 @@ Module.register('MMM-3Day-Forecast', {
         // Set up the local values, here we construct the request url to use
         this.units = this.config.units==='I'?'imperial':'metric';
         this.loaded = false;
-		this.url = 'https://api.openweathermap.org/data/3.0/forecast?appid=' + this.config.api_key + '&lat=' + this.config.lat + '&lon=' + this.config.lon + '&units=' + this.units + '&lang=' + this.config.lang + '&cnt=24';
+		this.url = 'https://api.openweathermap.org/data/2.5/forecast?appid=' + this.config.api_key + '&lat=' + this.config.lat + '&lon=' + this.config.lon + '&units=' + this.units + '&lang=' + this.config.lang + '&cnt=24';
         this.forecast = [];
 		this.horizontalView = this.config.horizontalView;
 
