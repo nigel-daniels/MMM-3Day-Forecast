@@ -22,9 +22,9 @@ Module.register('MMM-3Day-Forecast', {
         Log.log('Starting module: ' + this.name);
 
         // Set up the local values, here we construct the request url to use
-        this.units = this.config.units==='I'?'imperial':'metric';
+        this.units = this.config.units;
         this.loaded = false;
-		this.url = 'https://api.openweathermap.org/data/2.5/forecast?appid=' + this.config.api_key + '&lat=' + this.config.lat + '&lon=' + this.config.lon + '&units=' + this.units + '&lang=' + this.config.lang + '&cnt=24';
+		this.url = 'http://api.weatherapi.com/v1/forecast.json?q=' + this.config.lat + ',' + this.config.lon + '&days=3&lang=' + this.config.lang + '&hour=12&key=' + this.config.api_key;
         this.forecast = [];
 		this.horizontalView = this.config.horizontalView;
 
@@ -73,8 +73,6 @@ Module.register('MMM-3Day-Forecast', {
 				// Set up the forecast for three three days
 	            for (var i = 0; i < 3; i++) {
 	                var title = '';
-					var C = '--';
-					var F = '--';
 
 					// Determine which day we are detailing
 	                switch (i) {
@@ -87,15 +85,7 @@ Module.register('MMM-3Day-Forecast', {
 	                    case 2:
 	                        title = this.translate('DAYAFTER');
 	                        break;
-	                    }
-
-					if (this.forecast[i].high !== '--') {
-						if (this.units === 'metric') {
-							C = this.forecast[i].high;
-						} else {
-							F = this.forecast[i].high;
-							}
-						}
+	                }
 
 					row1 = document.createElement('tr');
 
@@ -125,11 +115,20 @@ Module.register('MMM-3Day-Forecast', {
 
 					tempCell = document.createElement('td');
 					tempCell.className = 'detailText2';
-					if (this.units === 'metric') {
-	                    tempCell.innerHTML = Math.round(C) + '&deg; C';
+
+					if (this.units === 'M') {
+						if (this.forecast[i].high_c !== '--') {
+	                    	tempCell.innerHTML = Math.round(this.forecast[i].high_c) + '&deg; C';
+						} else {
+							tempCell.innerHTML = this.forecast[i].high_c + '&deg; C';
+						}
 	                } else {
-						tempCell.innerHTML = Math.round(F) + '&deg; F';
-	                    }
+						if (this.forecast[i].high_f !== '--') {
+							tempCell.innerHTML = Math.round(this.forecast[i].high_f) + '&deg; F';
+						} else {
+							tempCell.innerHTML = this.forecast[i].high_f + '&deg; F';
+						}
+	                }
 
 					rainIconCell = document.createElement('td');
 					rainIconCell.className = 'detailIcon2';
@@ -141,7 +140,7 @@ Module.register('MMM-3Day-Forecast', {
 
 					rainCell = document.createElement('td');
 					rainCell.className = 'detailText2';
-					rainCell.innerHTML = Math.round(this.forecast[i].pop * 100) + '%';
+					rainCell.innerHTML = this.forecast[i].pop + '%';
 
 					row3 = document.createElement('tr');
 
@@ -159,7 +158,7 @@ Module.register('MMM-3Day-Forecast', {
 
 					humidityCell = document.createElement('td');
 					humidityCell.className = 'detailText2';
-					humidityCell.innerHTML = Math.round(this.forecast[i].humid) + '%';
+					humidityCell.innerHTML = this.forecast[i].humid + '%';
 
 					windIconCell = document.createElement('td');
 					windIconCell.className = 'detailIcon2';
@@ -172,11 +171,19 @@ Module.register('MMM-3Day-Forecast', {
 					windCell = document.createElement('td');
 					windCell.className = 'detailText2';
 
-					if (this.units === 'metric') {
-	                    windCell.innerHTML = Math.round((this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS');
+					if (this.units === 'M') {
+						if (this.forecast[i].wspd_k !== '--') {
+	                    	windCell.innerHTML = Math.round(( this.forecast[i].wspd_k / 3.6 )) + ' ' + this.translate('MPS');
+						} else {
+							windCell.innerHTML = this.forecast[i].wspd_k + ' ' + this.translate('MPS');
+						}
 	                } else {
-	                    windCell.innerHTML = Math.round((this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPH');
-	                    }
+						if (this.forecast[i].wspd_m !== '--') {
+	                    	windCell.innerHTML = Math.round( this.forecast[i].wspd_m ) + ' ' + this.translate('MPH');
+						} else {
+							windCell.innerHTML = this.forecast[i].wspd_m + ' ' + this.translate('MPH');
+						}
+	                }
 
 					forecastIconCell.appendChild(forecastIcon);
 
@@ -214,8 +221,6 @@ Module.register('MMM-3Day-Forecast', {
 	            for (var i = 0; i < 3; i++) {
 	                var forecastClass = '';
 	                var title = '';
-					var C = '--';
-					var F = '--';
 
 	                // Determine which day we are detailing
 	                switch (i) {
@@ -232,16 +237,6 @@ Module.register('MMM-3Day-Forecast', {
 	                        title = this.translate('DAYAFTER');
 	                        break;
 	                    }
-
-					if (this.forecast[i].high !== '--') {
-						if (this.units === 'metric') {
-							C = this.forecast[i].high;
-							F = ((((C*9)/5)+32) * 10 ) / 10;
-						} else {
-							F = this.forecast[i].high;
-							C = ((((F-32)*5)/9) * 10 ) / 10;
-							}
-						}
 
 	                // Create the details for this day
 	                forcastDay = document.createElement('td');
@@ -277,11 +272,20 @@ Module.register('MMM-3Day-Forecast', {
 
 	                tempText = document.createElement('span');
 	                tempText.className = 'normal';
-	                if (this.units === 'metric') {
-	                    tempText.innerHTML = Math.round(C) + '&deg; C (' + Math.round(F) + '&deg; F)';
+
+					if (this.units === 'M') {
+						if (this.forecast[i].high_c !== '--') {
+	                    	tempText.innerHTML = Math.round(this.forecast[i].high_c) + '&deg; C';
+						} else {
+							tempText.innerHTML = this.forecast[i].high_c + '&deg; C';
+						}
 	                } else {
-						tempText.innerHTML = Math.round(F) + '&deg; F (' + Math.round(C) + '&deg; C)';
-	                    }
+						if (this.forecast[i].high_f !== '--') {
+							tempText.innerHTML = Math.round(this.forecast[i].high_f) + '&deg; F';
+						} else {
+							tempText.innerHTML = this.forecast[i].high_f + '&deg; F';
+						}
+	                }
 
 	                tempBr = document.createElement('br');
 
@@ -293,7 +297,7 @@ Module.register('MMM-3Day-Forecast', {
 	                rainIcon.src = './modules/MMM-3Day-Forecast/images/wet.png';
 
 	                rainText = document.createElement('span');
-	                rainText.innerHTML = Math.round(this.forecast[i].pop * 100) + '%';
+	                rainText.innerHTML = this.forecast[i].pop + '%';
 
 	                rainBr = document.createElement('br');
 
@@ -306,7 +310,7 @@ Module.register('MMM-3Day-Forecast', {
 
 	                humidText = document.createElement('span');
 	                humidText.className = 'normal';
-	                humidText.innerHTML = Math.round(this.forecast[i].humid) + '%';
+	                humidText.innerHTML = this.forecast[i].humid + '%';
 
 	                humidBr = document.createElement('br');
 
@@ -318,12 +322,20 @@ Module.register('MMM-3Day-Forecast', {
 	                windIcon.src = './modules/MMM-3Day-Forecast/images/wind.png';
 
 	                windText = document.createElement('span');
-	                if (this.units === 'metric') {
-	                    windText.innerHTML = Math.round((this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPS') + ' ' + this.forecast[i].wdir;
-	                } else {
-	                    windText.innerHTML = Math.round((this.forecast[i].wspd * 10 ) / 10) + ' ' + this.translate('MPH') + ' ' + this.forecast[i].wdir;
-	                    }
 
+					if (this.units === 'M') {
+						if (this.forecast[i].wspd_k !== '--') {
+	                    	windText.innerHTML = Math.round(( this.forecast[i].wspd_k / 3.6 )) + ' ' + this.translate('MPS');
+						} else {
+							windText.innerHTML = this.forecast[i].wspd_k + ' ' + this.translate('MPS');
+						}
+	                } else {
+						if (this.forecast[i].wspd_m !== '--') {
+	                    	windText.innerHTML = Math.round( this.forecast[i].wspd_m ) + ' ' + this.translate('MPH');
+						} else {
+							windText.innerHTML = this.forecast[i].wspd_m + ' ' + this.translate('MPH');
+						}
+	                }
 	                //windBr = document.createElement('br');
 
 	                // Now assemble the details
